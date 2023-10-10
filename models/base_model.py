@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 """Implement the templated for the base class."""
-
-
 import datetime
 import uuid
 
@@ -9,7 +7,8 @@ import uuid
 class BaseModels:
     """Template for  all items for the HBNB Console."""
     def __init__(self, *args, **kwargs):
-        """Instintiated the base models class.
+        """
+        Instantiated the base models class.
             Args:
                 *args: additional arguments provided to the program
                 **kwargs: Additional key value to the program.
