@@ -13,9 +13,12 @@ class BaseModel:
         self.updated_at = datetime.today()
 
     def __str__(self):
+        """Print name id and dict"""
         return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
+        """updates updated_at with the current datetime"""
+        self.created_at = datetime.today()
         pass
 
     def to_dict(self):
