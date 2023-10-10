@@ -1,19 +1,22 @@
 #!/usr/bin/python3
-"""Implement the templated for the base class."""
-import datetime
+"""The base class."""
+from datetime import *
 import uuid
 
 
-class BaseModels:
-    """Template for  all items for the HBNB Console."""
+class BaseModel:
+    """A class that defines all common attributes/methods."""
     def __init__(self, *args, **kwargs):
-        """
-        Instantiated the base models class.
-            Args:
-                *args: additional arguments provided to the program
-                **kwargs: Additional key value to the program.
-        """
+        """Initialize object attributes"""
         self.id = str(uuid.uuid4())
         self.created_at = datetime.today()
         self.updated_at = datetime.today()
+
+    def __str__(self):
+        return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
+
+    def save(self):
+        pass
+
+    def to_dict(self):
         pass
