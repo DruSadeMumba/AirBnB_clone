@@ -3,7 +3,7 @@
 
 
 import datetime
-import uuid4
+import uuid
 
 
 class BaseModels:
@@ -14,7 +14,7 @@ class BaseModels:
                 *args: additional arguments provided to the program
                 **kwargs: Additional key value to the program.
         """
-        self.id = str(uuid4())
+        self.id = str(uuid.uuid4())
         self.created_at = datetime.today()
         self.updated_at = datetime.today()
         pass
