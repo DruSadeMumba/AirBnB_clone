@@ -1,13 +1,12 @@
 #!/usr/bin/python3
 """Importing the module for building commandline interface."""
-
-
 import cmd
 import sys
 
 
 class HBNBCommand(cmd.Cmd):
-    """Buidling Commandline Interpreter.
+    """
+    Building Commandline Interpreter.
     Attributes:
         intro (str): Tips for using Console interpreter
         prompt (str): User interactive tiext display.
@@ -19,7 +18,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)> '
 
     def emptyline(self):
-        """Displaying an prompt even when emptyline."""
+        """Displaying a prompt even when empty line."""
         pass
 
     def do_EOF(self, arg):
@@ -40,7 +39,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         pass
-
 
 
 if __name__ == '__main__':
