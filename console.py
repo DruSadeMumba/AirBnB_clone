@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-<<<<<<< HEAD
 """Importing the module for building commandline interface."""
 
 
@@ -52,5 +51,3 @@ if __name__ == '__main__':
             input_line = input_line.strip()
             if input_line:
                 HBNBCommand().onecmd(input_line)
-=======
->>>>>>> e2c179881a14455ae99b4607ab59116ad4231969
