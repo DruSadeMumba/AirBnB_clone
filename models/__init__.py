@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Package (library) for all modules in models file."""
-
-
+"""init FileStorage"""
 from .base_model import BaseModel
+from models.engine.file_storage import FileStorage
+storage = FileStorage()
+storage.reload()
