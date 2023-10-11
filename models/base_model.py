@@ -2,6 +2,7 @@
 """The base class."""
 from datetime import *
 import uuid
+from models import storage
 
 
 class BaseModel:
@@ -21,6 +22,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.today()
             self.updated_at = datetime.today()
+            storage.new(self)
 
     def __str__(self):
         """Print name id and dict"""
@@ -29,6 +31,7 @@ class BaseModel:
     def save(self):
         """Updates updated_at with the current datetime"""
         self.updated_at = datetime.today()
+        storage.save()
 
     def to_dict(self):
         """ Returns a dictionary rep of the instance"""

@@ -2,12 +2,11 @@
 """FileStorage Class"""
 import json
 import os
-from models import *
 
 
 class FileStorage:
-    """A class that serializes and deserializes instances to and fro JSON file"""
-    __file_path = "file_storage.json"
+    """Serializing and deserializing of instances to and fro JSON file"""
+    __file_path = "file.json"
     __objects = {}
 
     def all(self):
@@ -21,7 +20,8 @@ class FileStorage:
     def save(self):
         """serializes __objects to the JSON file"""
         with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
-            dic = {key: val.to_dict() for key, val in FileStorage.__objects.items()}
+            dic = {key: val.to_dict()
+                   for key, val in FileStorage.__objects.items()}
             json.dump(dic, f)
 
     def reload(self):
@@ -31,5 +31,6 @@ class FileStorage:
 
         with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
             dic = json.load(f)
-        dic = {key: globals()[val["__class__"]](**val) for key, val in dic.items()}
+        dic = {key: globals()[val["__class__"]](**val)
+               for key, val in dic.items()}
         FileStorage.__objects = dic
