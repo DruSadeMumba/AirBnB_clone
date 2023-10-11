@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 """FileStorage Class"""
+import json
+import os
+from models import *
 
 
 class FileStorage:
@@ -17,8 +20,16 @@ class FileStorage:
 
     def save(self):
         """serializes __objects to the JSON file"""
-        pass
+        with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
+            dic = {key: val.to_dict() for key, val in FileStorage.__objects.items()}
+            json.dump(dic, f)
 
     def reload(self):
         """Deserializes the JSON file to __objects"""
-        pass
+        if not os.path.isfile(FileStorage.__file_path):
+            return
+
+        with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
+            dic = json.load(f)
+        dic = {key: globals()[val["__class__"]](**val) for key, val in dic.items()}
+        FileStorage.__objects = dic
