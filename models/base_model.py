@@ -6,7 +6,6 @@ import uuid
 
 class BaseModel:
     """A class that defines all common attributes/methods."""
-
     DATE_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
 
     def __init__(self, *args, **kwargs):
@@ -29,7 +28,7 @@ class BaseModel:
 
     def save(self):
         """Updates updated_at with the current datetime"""
-        self.created_at = datetime.today()
+        self.updated_at = datetime.today()
 
     def to_dict(self):
         """ Returns a dictionary rep of the instance"""
