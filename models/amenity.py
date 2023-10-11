@@ -4,8 +4,8 @@ from .base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    """Represenation of the Amenity class.
-
+    """
+    Representation of the Amenity class.
     Attributes:
         name(str): The class of Amenity
     """

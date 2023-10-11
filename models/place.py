@@ -4,12 +4,12 @@ from .base_model import BaseModel
 
 
 class Place(BaseModel):
-    """Representation of the Place class.
-
+    """
+    Representation of the Place class.
     Attributes:
         city_id (str): City's ID
         user_id (str): User's ID.
-        name (str): Places's Name.
+        name (str): Places' Name.
         description (str): Criteria for the Place.
         number_rooms (int): The No of rooms in the Place.
         number_bathrooms (int): The No of bathrooms.
