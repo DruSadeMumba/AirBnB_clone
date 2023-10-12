@@ -9,6 +9,12 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
+    cls_list = (
+            "BaseModel",
+            "User", "City", "State", "Place",
+            "Amenity", "Review"
+            )
+
     def all(self):
         """Returns the dictionary __objects"""
         return FileStorage.__objects
