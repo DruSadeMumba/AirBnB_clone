@@ -7,7 +7,7 @@
 * (fill in)
 ### Using the command interpreter
 --> Interactive Mode  
-```
+``` commandline
 $ ./console.py
 (hbnb) help
 
@@ -45,8 +45,8 @@ $
 ### Examples
 * (fill)
 ## Authors
-* **Dru Sade Mumba**
-*  **Celse Honore Rugira**
+*Dru Sade Mumba*\
+*Celse Honore Rugira*
 ## Support and contact details
 `drusademumba@gmail.com`\
 `rugiracelse13@gmail.com`
