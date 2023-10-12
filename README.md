@@ -51,8 +51,8 @@ $
 *  **Celse Honore Rugira**
 
 ## Support and contact details
-drusademumba@gmail.com\
-rugiracelse13@gmail.com
+`drusademumba@gmail.com`\
+`rugiracelse13@gmail.com`
 
 ### License
 Licensed under [MIT License](LICENSE)
