@@ -3,7 +3,6 @@
 <h1 align="center">AirBnB Clone</h1>
 
 ## Command Interpreter Description
-* (fill in)
 ### Starting the command interpreter
 * (fill in)
 ### Using the command interpreter
@@ -45,14 +44,11 @@ $
 ```
 ### Examples
 * (fill)
-
 ## Authors
 * **Dru Sade Mumba**
 *  **Celse Honore Rugira**
-
 ## Support and contact details
 `drusademumba@gmail.com`\
 `rugiracelse13@gmail.com`
-
 ### License
 Licensed under [MIT License](LICENSE)
