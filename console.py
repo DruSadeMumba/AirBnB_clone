@@ -4,6 +4,7 @@ import cmd
 from shlex import split
 from models import storage
 from models.base_model import BaseModel
+from models.engine.custom_exceptions import *
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
