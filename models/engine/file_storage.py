@@ -46,3 +46,28 @@ class FileStorage:
         dic = {key: globals()[val["__class__"]](**val)
                for key, val in dic.items()}
         FileStorage.__objects = dic
+
+    def pop_classname_id(self, class_list, input_1, input_2):
+        """Deleted an instance of a class."""
+        temp = FileStorage
+        if input_1 not in temp.class_list:
+            raise ClassNameNotFoundError(input_1)
+
+        k = input_1 + "." + input_2
+        if k not in temp.__objects:
+            raise InstanceIdNotFoundError(input_2, input_1)
+
+        del temp.__objects[k]
+        self.save()
+
+    def find_classname_id(self, class_list, input_1, input_2):
+        """Find given classname in the storage objects."""
+        temp = FileStorage
+        if input_1 not in temp.class_list:
+            raise ClassNameNotFoundError(input_1)
+
+        k = input_1 + "." + input_2
+        if k not in temp.__objects:
+            raise InstanceIdNotFoundError(input_2, input_1)
+
+        return temp.__objects[k]
