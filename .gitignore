@@ -157,3 +157,4 @@ cython_debug/
 # project files
 .idea/
 /generate.sh
+/file.json
