@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 """Importing the module for building commandline interface."""
 import cmd
-import sys
-import json
-import os
 from shlex import split
 from models import storage
 from models.base_model import BaseModel
@@ -14,8 +11,6 @@ from models.place import Place
 from models.review import Review
 from models.user import User
 
-
-class_list = storage.cls_list
 
 def parsing_str(input: str):
     """Extract a portion of the string."""
@@ -79,9 +74,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        #if input_arg[0] not in class_list:
-            #print("** class doesn't exist **")
-            #return
+        # if input_arg[0] not in class_list:
+        # print("** class doesn't exist **")
+        # return
         elif arg_len == 1:
             obj = eval(input_arg[0])()
             obj.save()

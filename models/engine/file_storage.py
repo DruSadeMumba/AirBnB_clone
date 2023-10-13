@@ -51,7 +51,7 @@ class FileStorage:
     def pop_classname_id(self, class_list, input_1, input_2):
         """Deleted an instance of a class."""
         temp = FileStorage
-        if input_1 not in temp.class_list:
+        if input_1 not in temp.cls_list:
             raise ClassNameNotFoundError(input_1)
 
         k = input_1 + "." + input_2
@@ -64,7 +64,7 @@ class FileStorage:
     def find_classname_id(self, class_list, input_1, input_2):
         """Find given classname in the storage objects."""
         temp = FileStorage
-        if input_1 not in temp.class_list:
+        if input_1 not in temp.cls_list:
             raise ClassNameNotFoundError(input_1)
 
         k = input_1 + "." + input_2
