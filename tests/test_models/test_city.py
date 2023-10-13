@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+"""Unittest module for the City Class."""
 import datetime
 import unittest
 from models.city import City
@@ -8,8 +10,8 @@ class TestCity(unittest.TestCase):
     new = City()
     attr_types = {
         'id': str,
-        'created_at': datetime,
-        'updated_at': datetime,
+        'created_at': datetime.datetime,
+        'updated_at': datetime.datetime,
         'state_id': str,
         'name': str
     }
@@ -30,10 +32,7 @@ class TestCity(unittest.TestCase):
         attr = ['id', 'created_at', 'updated_at', 'state_id', 'name']
         for attr_name in attr:
             self.assertTrue(hasattr(instance, attr_name))
-            if attr_name in {'created_at', 'updated_at'}:
-                self.assertIsInstance(getattr(instance, attr_name), datetime.datetime)
-            else:
-                self.assertIsInstance(getattr(instance, attr_name), self.attr_types[attr_name])
+            self.assertIsInstance(getattr(instance, attr_name), self.attr_types[attr_name])
 
     def test_instantiation(self):
         """Test instantiation of City class."""

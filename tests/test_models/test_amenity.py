@@ -11,8 +11,8 @@ class TestAmenity(unittest.TestCase):
     new = Amenity()
     attr_types = {
         'id': str,
-        'created_at': datetime,
-        'updated_at': datetime,
+        'created_at': datetime.datetime,
+        'updated_at': datetime.datetime,
         'name': str
     }
 
@@ -32,10 +32,7 @@ class TestAmenity(unittest.TestCase):
         attr = ['id', 'created_at', 'updated_at', 'name']
         for attr_name in attr:
             self.assertTrue(hasattr(instance, attr_name))
-            if attr_name in {'created_at', 'updated_at'}:
-                self.assertIsInstance(getattr(instance, attr_name), datetime.datetime)
-            else:
-                self.assertIsInstance(getattr(instance, attr_name), self.attr_types[attr_name])
+            self.assertIsInstance(getattr(instance, attr_name), self.attr_types[attr_name])
 
     def test_instantiation(self):
         """Test instantiation of Amenity class."""
