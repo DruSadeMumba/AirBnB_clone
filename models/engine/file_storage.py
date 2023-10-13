@@ -2,18 +2,24 @@
 """FileStorage Class"""
 import json
 import os
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
 class FileStorage:
     """Serializing and deserializing of instances to and fro JSON file"""
     __file_path = "file.json"
     __objects = {}
-
     cls_list = (
-            "BaseModel",
-            "User", "City", "State", "Place",
-            "Amenity", "Review"
-            )
+        "BaseModel",
+        "User", "City", "State", "Place",
+        "Amenity", "Review"
+    )
 
     def all(self):
         """Returns the dictionary __objects"""
