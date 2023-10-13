@@ -6,6 +6,7 @@ import json
 import os
 from shlex import split
 from models import storage
+from models.base_model import BaseModel
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
@@ -13,6 +14,8 @@ from models.place import Place
 from models.review import Review
 from models.user import User
 
+
+class_list = storage.cls_list
 
 def parsing_str(input: str):
     """Extract a portion of the string."""
@@ -76,9 +79,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        if input_arg[0] not in HBNBCommand.__cls_list:
-            print("** class doesn't exist **")
-            return
+        #if input_arg[0] not in class_list:
+            #print("** class doesn't exist **")
+            #return
         elif arg_len == 1:
             obj = eval(input_arg[0])()
             obj.save()
@@ -108,18 +111,18 @@ class HBNBCommand(cmd.Cmd):
         if arg_len == 0:
             print("** class name missing **")
 
-        if input_arg[0] not in HBNBCommand.__cls_list:
-            print("** class doesn't exist **")
+        elif arg_len > 1:
+            try:
+                storage.pop_classname_id(HBNBCommand.__cls_list,
+                                         input_arg[0], input_arg[1])
 
-        if arg_len > 1:
-            k = input_arg[0] + '.' + input_arg[1]
-            if k in storage.all():
-                storage.all().pop(k)
-                storage.save()
-            else:
+            except InstanceIdNotFoundError:
                 print("** no instance found **")
+
+            except ClassNameNotFoundError:
+                print("** class doesn't exist **")
         else:
-            print("** instance id missing **")
+            return
 
     def do_update(self, arg):
         """Update the class attribute and save it."""
