@@ -5,12 +5,13 @@ from shlex import split
 from models import storage
 from models.base_model import BaseModel
 from models.engine.custom_exceptions import *
+from models.base_model import BaseModel
+from models.user import User
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-from models.user import User
 
 
 def parsing_str(input: str):
@@ -75,13 +76,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        # if input_arg[0] not in class_list:
-        # print("** class doesn't exist **")
-        # return
         elif arg_len == 1:
             obj = eval(input_arg[0])()
             obj.save()
             print(obj.id)
+
         else:
             return
 
@@ -148,6 +147,36 @@ class HBNBCommand(cmd.Cmd):
                     print("** attribute name missing ** ")
             else:
                 print("** no instance found ** ")
+
+    def execute_method(self, arg):
+        """Execute different class methods."""
+
+        class_methods = ["all", "show", "count", "create"]
+        try:
+            for method in class_methods:
+                if method in arg:
+                    exec(f'print({arg})')
+                    return
+        except AttributeError:
+            print("** attribute not found **")
+        except InstanceIdNotFoundError:
+            print("** no instance found **")
+        except TypeError as e:
+            attr = str(e).split()[-1].replace("_", " ")
+            print("** {} missing **".format(attr))
+        except Exception:
+            print("** use correct syntax **")
+
+    def default(self, arg):
+        """Provide implementation for method found in class."""
+        if '.' in arg and arg.endswith(')'):
+            class_name = arg.split('.')[0]
+            if class_name not in HBNBCommand.__cls_list:
+                print("** class doesn't exist **")
+                return
+            return self.execute_method(arg)
+
+        return super().default(arg)
 
 
 if __name__ == '__main__':
