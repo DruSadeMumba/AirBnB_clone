@@ -3,7 +3,6 @@
 import json
 import os
 from datetime import datetime
-
 from models.base_model import BaseModel
 from .custom_exceptions import *
 from models.user import User
@@ -20,11 +19,8 @@ class FileStorage:
     __objects = {}
     _FileStorage__file_path = __file_path
     _FileStorage__objects = __objects
-    cls_list = (
-        "BaseModel",
-        "User", "City", "State", "Place",
-        "Amenity", "Review"
-    )
+    cls_list = ("BaseModel", "User", "City", "State",
+                "Place", "Amenity", "Review")
 
     def all(self):
         """Returns the dictionary __objects"""

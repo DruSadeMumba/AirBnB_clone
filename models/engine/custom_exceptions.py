@@ -26,6 +26,8 @@ class FieldNotFoundError(Exception):
         self.message = f"'{attr_name}' of '{class_name}' is not found."
         super().__init__(self.message)
 
+
+class ExtraFunctions:
     @classmethod
     def all(cls):
         """retrieve all instances of a class."""
@@ -56,7 +58,7 @@ class FieldNotFoundError(Exception):
         if len(keys) == 0:
             print("** attribute name missing **")
             return
-        if len(keys) is 1 and type(keys[0]) is type(dict):
+        if len(keys) == 1 and type(keys[0]) is type(dict):
             keys = keys[0].items()
         else:
             keys = [keys[:2]]
@@ -65,4 +67,4 @@ class FieldNotFoundError(Exception):
                 cls.__name__,
                 obj_id,
                 *arg
-                )
+            )
