@@ -62,7 +62,7 @@ class FileStorage:
         del temp.__objects[k]
         self.save()
 
-    def find_classname_id(self, class_list, input_1, input_2):
+    def find_classname_id(self, input_1, input_2):
         """Find given classname in the storage objects."""
         temp = FileStorage
         if input_1 not in temp.cls_list:
