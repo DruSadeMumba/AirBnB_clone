@@ -13,6 +13,6 @@ class ClassNameNotFoundError(Exception):
 class InstanceIdNotFoundError(Exception):
     """Handling the issue of missing instance ID."""
 
-    def __init__(self, instance_id):
-        self.message = f"Instance ID '{instance_id}' not found."
+    def __init__(self, instance_id, class_name):
+        self.message = f"'{class_name}' with '{instance_id}' is not found."
         super().__init__(self.message)
