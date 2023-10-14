@@ -49,7 +49,7 @@ class FileStorage:
                for key, val in dic.items()}
         FileStorage.__objects = dic
 
-    def pop_classname_id(self, class_list, input_1, input_2):
+    def pop_classname_id(self, input_1, input_2):
         """Deleted an instance of a class."""
         temp = FileStorage
         if input_1 not in temp.cls_list:
