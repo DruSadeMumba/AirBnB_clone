@@ -39,3 +39,44 @@ class BaseModel:
                for key, val in self.__dict__.items()}
         dic["__class__"] = type(self).__name__
         return dic
+
+    @classmethod
+    def all(cls):
+        """retrieve all instances of a class."""
+        class_instance = models.storage.find_instance(cls.__name__)
+        return class_instance
+
+    @classmethod
+    def count(cls):
+        """retrieve the number of instances of a class."""
+        class_count = len(models.storage.find_instance(cls.__name__))
+        return class_count
+
+    @classmethod
+    def show(cls, obj_id):
+        """retrieve an instance based on its ID."""
+        ist = models.storage.find_classname_id(cls.__name__, obj_id)
+        return ist
+
+    @classmethod
+    def destroy(cls, obj_id):
+        """destroy an instance based on his ID."""
+        deleted_obj = models.storage.pop_classname_id(cls.__name__, obj_id)
+        return deleted_obj
+
+    @classmethod
+    def update(cls, obj_id, *keys):
+        """update the attrbutes of the class."""
+        if len(keys) == 0:
+            print("** attribute name missing **")
+            return
+        if len(keys) == 1 and type(keys[0]) == type(dict):
+            keys = keys[0].items()
+        else:
+            keys = [keys[:2]]
+        for arg in keys:
+            models.storage.update_class(
+                cls.__name__,
+                obj_id,
+                *arg
+                )
