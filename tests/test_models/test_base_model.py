@@ -20,11 +20,11 @@ class TestBaseModel(unittest.TestCase):
 
     def test_save(self):
         """Test Save func"""
-        pass
+        self.fail()
 
     def test_to_dict(self):
         """Test to_dic func"""
-        pass
+        self.fail()
 
 
 if __name__ == '__main__':
