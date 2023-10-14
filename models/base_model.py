@@ -66,11 +66,11 @@ class BaseModel:
 
     @classmethod
     def update(cls, obj_id, *keys):
-        """update the attrbutes of the class."""
+        """update the attributes of the class."""
         if len(keys) == 0:
             print("** attribute name missing **")
             return
-        if len(keys) == 1 and type(keys[0]) == type(dict):
+        if len(keys) is 1 and type(keys[0]) is type(dict):
             keys = keys[0].items()
         else:
             keys = [keys[:2]]
