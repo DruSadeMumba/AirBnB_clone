@@ -73,3 +73,14 @@ class FileStorage:
             raise InstanceIdNotFoundError(input_2, input_1)
 
         return temp.__objects[k]
+
+    def find_instance(self, class_name=""):
+        """Retrieve instance of the class_name."""
+        if class_name and class_name not in FileStorage.cls_list:
+            raise ClassNameNotFoundError(class_name)
+
+        temp = list()
+        for k, v in FileStorage.__objects.items():
+            if k.startswith(class_name):
+                temp.append(str(v))
+        return temp
