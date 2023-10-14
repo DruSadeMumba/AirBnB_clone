@@ -84,3 +84,27 @@ class FileStorage:
             if k.startswith(class_name):
                 temp.append(str(v))
         return temp
+
+    def update_class(self, class_name, obj_id, attr_name, item):
+        """Update the class with provided value."""
+        temp = FileStorage
+        if class_name not in temp.cls_list:
+            raise ClassNameNotFoundError(class_name)
+
+        k = class_name + "." + obj_id
+        if k not in temp.__objects:
+            raise InstanceIdNotFoundError(obj_id, class_name)
+
+        obj_value = temp.__objects[k]
+
+        if attr_name in ("id", "updated_at", "created_at"):
+            return
+
+        if attr_name not in obj_value.__dict__:
+            raise FieldNotFoundError(attr_name, class_name)
+
+        existing_type = type(obj_value.__dict__[attr_name])
+        obj_value.__dict__[attr_name] = existing_type(item)
+        obj_value.updated_at = datetime.utcnow()
+
+        self.save()
