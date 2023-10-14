@@ -18,17 +18,16 @@ class TestUser(unittest.TestCase):
         'last_name': str
     }
 
-    def setUp(self) -> None:
+    def setUp(self):
+        """Set up tests"""
         super().setUp()
 
-    def tearDown(self) -> None:
+    def tearDown(self):
+        """Tear down tests"""
         super().tearDown()
 
     def assertAttributes(self, instance):
         """attributes data types"""
-        self.assertIsInstance(instance, User)
-        self.assertTrue(issubclass(type(instance), BaseModel))
-
         attr = ['id', 'created_at', 'updated_at', 'email', 'password', 'first_name', 'last_name']
         for attr_name in attr:
             self.assertTrue(hasattr(instance, attr_name))

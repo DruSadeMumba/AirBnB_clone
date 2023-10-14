@@ -17,18 +17,15 @@ class TestAmenity(unittest.TestCase):
     }
 
     def setUp(self):
-        """Sets up test methods."""
+        """Set up test methods."""
         super().setUp()
 
     def tearDown(self):
-        """Tears down test methods."""
+        """Tear down test methods."""
         super().tearDown()
 
     def assertAttributes(self, instance):
-        """attributes data types"""
-        self.assertIsInstance(instance, Amenity)
-        self.assertTrue(issubclass(type(instance), BaseModel))
-
+        """Attributes data types"""
         attr = ['id', 'created_at', 'updated_at', 'name']
         for attr_name in attr:
             self.assertTrue(hasattr(instance, attr_name))

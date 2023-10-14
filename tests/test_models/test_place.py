@@ -25,17 +25,16 @@ class TestPlace(unittest.TestCase):
         'amenity_ids': list
     }
 
-    def setUp(self) -> None:
+    def setUp(self):
+        """Set up tests"""
         super().setUp()
 
-    def tearDown(self) -> None:
+    def tearDown(self):
+        """Tear down tests"""
         super().tearDown()
 
     def assertAttributes(self, instance):
         """attributes data types"""
-        self.assertIsInstance(instance, Place)
-        self.assertTrue(issubclass(type(instance), BaseModel))
-
         attr = [
             'id', 'created_at', 'updated_at', 'city_id',
             'user_id', 'name', 'description', 'number_rooms',

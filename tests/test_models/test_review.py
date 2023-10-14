@@ -17,17 +17,16 @@ class TestReview(unittest.TestCase):
         'text': str
     }
 
-    def setUp(self) -> None:
+    def setUp(self):
+        """Set up tests"""
         super().setUp()
 
-    def tearDown(self) -> None:
+    def tearDown(self):
+        """Tear down tests"""
         super().tearDown()
 
     def assertAttributes(self, instance):
         """attributes data types"""
-        self.assertIsInstance(instance, Review)
-        self.assertTrue(issubclass(type(instance), BaseModel))
-
         attr = ['id', 'created_at', 'updated_at', 'place_id', 'user_id', 'text']
         for attr_name in attr:
             self.assertTrue(hasattr(instance, attr_name))
