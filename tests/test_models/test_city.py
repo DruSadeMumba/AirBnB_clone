@@ -7,6 +7,7 @@ from models.base_model import BaseModel
 
 
 class TestCity(unittest.TestCase):
+    """Test Cases for the City class."""
     new = City()
     attr_types = {
         'id': str,

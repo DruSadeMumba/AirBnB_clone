@@ -13,6 +13,7 @@ from models import FileStorage, storage
 
 
 def assert_raises_type_error(self, func, *args):
+    """Error handler"""
     with self.assertRaises(TypeError) as e:
         func(args)
     err = f"{str(e.exception)}"
@@ -20,9 +21,9 @@ def assert_raises_type_error(self, func, *args):
 
 
 class TestFileStorage(unittest.TestCase):
+    """Test cases for the FileStorage class"""
     test_obj = [BaseModel(), Amenity(), City(), User(),
                 Review(), State(), User()]
-    all_objects = storage.all()
 
     def setUp(self):
         """Set up tests"""
@@ -45,8 +46,8 @@ class TestFileStorage(unittest.TestCase):
         """Test the all() function with a specific object."""
         key = f"{type(obj).__name__}.{obj.id}"
         storage.new(obj)
-        self.assertTrue(key in self.all_objects)
-        self.assertEqual(self.all_objects[key], obj)
+        self.assertTrue(key in storage.all())
+        self.assertEqual(storage.all()[key], obj)
 
     def assertAllObjs(self, objs):
         """Tests all() function with many objects for objs."""
@@ -107,6 +108,7 @@ class TestFileStorage(unittest.TestCase):
         assert_raises_type_error(self, storage.save, "a")
 
     def assertReload(self, obj):
+        """Test the reload() function with a specific object."""
         self.tearDown()
         storage.reload()
         self.assertEqual(FileStorage._FileStorage__objects, {})

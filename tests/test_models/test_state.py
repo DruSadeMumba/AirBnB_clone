@@ -7,6 +7,7 @@ from models.base_model import BaseModel
 
 
 class TestState(unittest.TestCase):
+    """Test Cases for the State class."""
     new = State()
     attr_types = {
         'id': str,

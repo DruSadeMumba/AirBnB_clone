@@ -7,6 +7,7 @@ from models.base_model import BaseModel
 
 
 class TestReview(unittest.TestCase):
+    """Test Cases for the Review class."""
     new = Review()
     attr_types = {
         'id': str,

@@ -1,23 +1,29 @@
+#!/usr/bin/python3
+"""Unittest module for the BaseModel Class."""
 import unittest
 
 
 class TestBaseModel(unittest.TestCase):
-    def __init__(self, methodName: str = ...) -> None:
-        super().__init__(methodName)
+    """Test cases for the FileStorage class"""
 
-    def setUp(self) -> None:
+    def setUp(self):
+        """Set up test methods."""
         super().setUp()
 
-    def tearDown(self) -> None:
+    def tearDown(self):
+        """Tear down test methods."""
         super().tearDown()
 
-    def id(self) -> str:
+    def id(self):
+        """Override Id"""
         return super().id()
 
     def test_save(self):
+        """Test Save func"""
         self.fail()
 
     def test_to_dict(self):
+        """Test to_dic func"""
         self.fail()
 
 
