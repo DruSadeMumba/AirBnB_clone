@@ -157,6 +157,7 @@ class HBNBCommand(cmd.Cmd):
                 if method in arg:
                     exec(f'print({arg})')
                     return
+
         except AttributeError:
             print("** attribute not found **")
         except InstanceIdNotFoundError:
