@@ -109,8 +109,7 @@ class HBNBCommand(cmd.Cmd):
 
         elif arg_len > 1:
             try:
-                storage.pop_classname_id(HBNBCommand.__cls_list,
-                                         input_arg[0], input_arg[1])
+                storage.pop_classname_id(input_arg[0], input_arg[1])
 
             except InstanceIdNotFoundError:
                 print("** no instance found **")
