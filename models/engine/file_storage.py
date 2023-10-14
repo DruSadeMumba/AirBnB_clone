@@ -16,7 +16,8 @@ class FileStorage:
     """Serializing and deserializing of instances to and fro JSON file"""
     __file_path = "file.json"
     __objects = {}
-
+    _FileStorage__file_path = __file_path
+    _FileStorage__objects = __objects
     cls_list = (
         "BaseModel",
         "User", "City", "State", "Place",
