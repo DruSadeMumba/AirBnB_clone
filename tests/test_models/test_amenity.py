@@ -29,11 +29,13 @@ class TestAmenity(unittest.TestCase):
         attr = ['id', 'created_at', 'updated_at', 'name']
         for attr_name in attr:
             self.assertTrue(hasattr(instance, attr_name))
-            self.assertIsInstance(getattr(instance, attr_name), self.attr_types[attr_name])
+            self.assertIsInstance(getattr(instance, attr_name),
+                                  self.attr_types[attr_name])
 
     def test_instantiation(self):
         """Test instantiation of Amenity class."""
-        self.assertEqual(str(type(self.new)), "<class 'models.amenity.Amenity'>")
+        self.assertEqual(str(type(self.new)),
+                         "<class 'models.amenity.Amenity'>")
         self.assertIsInstance(self.new, Amenity)
         self.assertTrue(issubclass(type(self.new), BaseModel))
         self.assertAttributes(self.new)

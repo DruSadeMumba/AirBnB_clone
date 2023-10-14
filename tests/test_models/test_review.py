@@ -28,10 +28,12 @@ class TestReview(unittest.TestCase):
 
     def assertAttributes(self, instance):
         """attributes data types"""
-        attr = ['id', 'created_at', 'updated_at', 'place_id', 'user_id', 'text']
+        attr = ['id', 'created_at', 'updated_at',
+                'place_id', 'user_id', 'text']
         for attr_name in attr:
             self.assertTrue(hasattr(instance, attr_name))
-            self.assertIsInstance(getattr(instance, attr_name), self.attr_types[attr_name])
+            self.assertIsInstance(getattr(instance, attr_name),
+                                  self.attr_types[attr_name])
 
     def test_instantiation(self):
         """Test instantiation of Review class."""

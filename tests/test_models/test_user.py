@@ -29,10 +29,12 @@ class TestUser(unittest.TestCase):
 
     def assertAttributes(self, instance):
         """attributes data types"""
-        attr = ['id', 'created_at', 'updated_at', 'email', 'password', 'first_name', 'last_name']
+        attr = ['id', 'created_at', 'updated_at', 'email',
+                'password', 'first_name', 'last_name']
         for attr_name in attr:
             self.assertTrue(hasattr(instance, attr_name))
-            self.assertIsInstance(getattr(instance, attr_name), self.attr_types[attr_name])
+            self.assertIsInstance(getattr(instance, attr_name),
+                                  self.attr_types[attr_name])
 
     def test_instantiation(self):
         """Test instantiation of User class."""

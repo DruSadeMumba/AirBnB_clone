@@ -37,13 +37,14 @@ class TestPlace(unittest.TestCase):
     def assertAttributes(self, instance):
         """attributes data types"""
         attr = [
-            'id', 'created_at', 'updated_at', 'city_id',
-            'user_id', 'name', 'description', 'number_rooms',
-            'max_guest', 'price_by_night', 'latitude', 'longitude', 'amenity_ids'
+            'id', 'created_at', 'updated_at', 'city_id', 'user_id',
+            'name', 'description', 'number_rooms', 'max_guest',
+            'price_by_night', 'latitude', 'longitude', 'amenity_ids'
         ]
         for attr_name in attr:
             self.assertTrue(hasattr(instance, attr_name))
-            self.assertIsInstance(getattr(instance, attr_name), self.attr_types[attr_name])
+            self.assertIsInstance(getattr(instance, attr_name),
+                                  self.attr_types[attr_name])
 
     def test_instantiation(self):
         """Test instantiation of Place class."""

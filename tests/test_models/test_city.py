@@ -30,7 +30,8 @@ class TestCity(unittest.TestCase):
         attr = ['id', 'created_at', 'updated_at', 'state_id', 'name']
         for attr_name in attr:
             self.assertTrue(hasattr(instance, attr_name))
-            self.assertIsInstance(getattr(instance, attr_name), self.attr_types[attr_name])
+            self.assertIsInstance(getattr(instance, attr_name),
+                                  self.attr_types[attr_name])
 
     def test_instantiation(self):
         """Test instantiation of City class."""

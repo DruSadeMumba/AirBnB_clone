@@ -9,7 +9,8 @@ from models.city import City
 from models.review import Review
 from models.state import State
 from models.user import User
-from models import FileStorage, storage
+from models import storage
+from models.engine.file_storage import FileStorage
 
 
 def assert_raises_type_error(self, func, *args):
@@ -39,7 +40,8 @@ class TestFileStorage(unittest.TestCase):
 
     def test_instantiation(self):
         """Test instantiation of FileStorage class"""
-        self.assertEqual(str(type(FileStorage())), "<class 'models.engine.file_storage.FileStorage'>")
+        self.assertEqual(str(type(FileStorage())),
+                         "<class 'models.engine.file_storage.FileStorage'>")
         self.assertIsInstance(FileStorage(), FileStorage)
 
     def assertAll(self, obj):
