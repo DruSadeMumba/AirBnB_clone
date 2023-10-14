@@ -50,7 +50,7 @@ class FileStorage:
                for key, val in dic.items()}
         FileStorage.__objects = dic
 
-    def pop_classname_id(self, class_list, input_1, input_2):
+    def pop_classname_id(self, input_1, input_2):
         """Deleted an instance of a class."""
         temp = FileStorage
         if input_1 not in temp.cls_list:
@@ -63,7 +63,7 @@ class FileStorage:
         del temp.__objects[k]
         self.save()
 
-    def find_classname_id(self, class_list, input_1, input_2):
+    def find_classname_id(self, input_1, input_2):
         """Find given classname in the storage objects."""
         temp = FileStorage
         if input_1 not in temp.cls_list:
@@ -85,3 +85,27 @@ class FileStorage:
             if k.startswith(class_name):
                 temp.append(str(v))
         return temp
+
+    def update_class(self, class_name, obj_id, attr_name, item):
+        """Update the class with provided value."""
+        temp = FileStorage
+        if class_name not in temp.cls_list:
+            raise ClassNameNotFoundError(class_name)
+
+        k = class_name + "." + obj_id
+        if k not in temp.__objects:
+            raise InstanceIdNotFoundError(obj_id, class_name)
+
+        obj_value = temp.__objects[k]
+
+        if attr_name in ("id", "updated_at", "created_at"):
+            return
+
+        if attr_name not in obj_value.__dict__:
+            raise FieldNotFoundError(attr_name, class_name)
+
+        existing_type = type(obj_value.__dict__[attr_name])
+        obj_value.__dict__[attr_name] = existing_type(item)
+        obj_value.updated_at = datetime.utcnow()
+
+        self.save()
