@@ -3,6 +3,14 @@
 import unittest
 
 
+def assert_raises_type_error(self, func, *args):
+    """Error handler"""
+    with self.assertRaises(TypeError) as e:
+        func(args)
+    err = f"{str(e.exception)}"
+    self.assertEqual(str(e.exception), err)
+
+
 class TestBaseModel(unittest.TestCase):
     """Test cases for the FileStorage class"""
 
