@@ -85,6 +85,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
+        elif input_arg[0] not in HBNBCommand.__cls_list:
+            print("** class doesn't exist **")
+
         elif arg_len == 1:
             obj = eval(input_arg[0])()
             obj.save()
@@ -162,7 +165,7 @@ class HBNBCommand(cmd.Cmd):
             obj = storage.all()[f"{input_arg[0]}.{input_arg[1]}"]
             if input_arg[2] in obj.__class__.__dict__:
                 obj.__dict__[input_arg[2]] =\
-                    type(obj.__class__.__dict__[input_arg[2]])
+                    type(obj.__class__.__dict__[input_arg[2]])(input_arg[3])
             else:
                 obj.__dict__[input_arg[2]] = input_arg[3]
         elif type(eval(input_arg[2])) == dict:
