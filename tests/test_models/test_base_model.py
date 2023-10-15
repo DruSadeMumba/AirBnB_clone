@@ -48,10 +48,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_to_dict(self):
         """Test to dic func"""
-        self.assertTrue(dict, type(self.base.to_dict()))
-        [self.assertIn(obj, self.base.to_dict())
-         for obj in self.vals if self.subTest(obj=obj)]
-        assert_raises_type_error(self, self.base.to_dict)
+        self.fail()
 
 
 if __name__ == '__main__':
