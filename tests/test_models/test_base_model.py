@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """Unittest module for the BaseModel Class."""
-import json
 import os
 import unittest
 from models.base_model import BaseModel
@@ -53,7 +52,6 @@ class TestBaseModel(unittest.TestCase):
             self.assertEqual(json.load(f), dic)
     """
     def test_save(self):
-        # self.assertSave()
         assert_raises_type_error(self, self.base.save)
         assert_raises_type_error(self, self.base.save, "a")
 
