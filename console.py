@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 """Importing the module for building commandline interface."""
 import cmd
+import re
 from shlex import split
 from models import storage
-from models.base_model import BaseModel
-from models.engine.custom_exceptions import *
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -116,13 +115,13 @@ class HBNBCommand(cmd.Cmd):
             except ClassNameNotFoundError:
                 print("** class doesn't exist **")
         else:
-            return
+            print("** instance id missing **")
 
     def do_update(self, arg):
         """Update the class attribute and save it."""
 
-        input_arg = arg.split()
-        arg_len = len(input_arg)
+        input_arg, arg_len = parsing_str(arg)
+
         if arg_len == 0:
             print("** class name missing **")
 
@@ -141,43 +140,48 @@ class HBNBCommand(cmd.Cmd):
                     else:
                         setattr(storage.all()[k],
                                 input_arg[2],
-                                input_arg[3][1:-1])
+                                input_arg[3][:])
                         storage.all()[k].save()
                 else:
                     print("** attribute name missing ** ")
             else:
                 print("** no instance found ** ")
 
-    def execute_method(self, arg):
-        """Execute different class methods."""
-
-        class_methods = ["all", "show", "count", "create"]
-        try:
-            for method in class_methods:
-                if method in arg:
-                    exec(f'print({arg})')
-                    return
-
-        except AttributeError:
-            print("** attribute not found **")
-        except InstanceIdNotFoundError:
-            print("** no instance found **")
-        except TypeError as e:
-            attr = str(e).split()[-1].replace("_", " ")
-            print("** {} missing **".format(attr))
-        except Exception:
-            print("** use correct syntax **")
+    def do_count(self, arg):
+        """Count No of instance of a class."""
+        input_arg, arg_len = parsing_str(arg)
+        num = 0
+        if arg_len == 0:
+            print("** class name missing **")
+        elif input_arg[0] not in HBNBCommand.__cls_list:
+            print("** class doesn't exist **")
+        else:
+            for ist in storage.all().values():
+                if input_arg[0] == ist.__class__.__name__:
+                    num += 1
+            print(num)
 
     def default(self, arg):
-        """Provide implementation for method found in class."""
-        if '.' in arg and arg.endswith(')'):
-            class_name = arg.split('.')[0]
-            if class_name not in HBNBCommand.__cls_list:
-                print("** class doesn't exist **")
-                return
-            return self.execute_method(arg)
+        """Handle function based on predefined keyword actions"""
+        command_dict = {
+            "all": self.do_all,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            "count": self.do_count,
+            "update": self.do_update
+        }
 
-        return super().default(arg)
+        if "." in arg:
+            split_arg = arg.split(".", 1)
+            if "(" in split_arg[1] and ")" in split_arg[1]:
+                command, rest = split_arg[1].split("(", 1)
+                arguments = rest.rsplit(")", 1)[0]
+                if command in command_dict.keys():
+                    call = "{} {}".format(split_arg[0], arguments)
+                    return command_dict[command](call)
+        
+        print("*** Not found: {}".format(arg))
+        return False
 
 
 if __name__ == '__main__':
