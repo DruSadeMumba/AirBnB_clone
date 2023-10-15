@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Importing the module for building commandline interface."""
 import cmd
+import re
 from shlex import split
 from models import storage
 from models.base_model import BaseModel
@@ -12,11 +13,20 @@ from models.place import Place
 from models.review import Review
 
 
-def parsing_str(input: str):
+def parsing_str(arg):
     """Extract a portion of the string."""
-    arg = split(input)
-    arg_length = len(arg)
-    return arg, arg_length
+    curly_match = re.search(r"\{(.*?)}", arg)
+    brackets_match = re.search(r"\[(.*?)]", arg)
+
+    pattern_match = brackets_match if curly_match is None else curly_match
+
+    if pattern_match is None:
+        return [i.strip(",") for i in split(arg)]
+    else:
+        delim = split(arg[:pattern_match.span()[0]])
+        return_list = [i.strip(",") for i in delim]
+        return_list.append(pattern_match.group())
+        return return_list
 
 
 class HBNBCommand(cmd.Cmd):
@@ -47,8 +57,8 @@ class HBNBCommand(cmd.Cmd):
         """Display the string representation of an instance
         grounding on the class name && id.
         """
-
-        input_arg, arg_len = parsing_str(arg)
+        input_arg = parsing_str(arg)
+        arg_len = len(input_arg)
 
         if arg_len == 0:
             print("** class name missing **")
@@ -68,8 +78,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """Creating a new instance of BaseModel,save it, and print the id."""
+        input_arg = parsing_str(arg)
+        arg_len = len(input_arg)
 
-        input_arg, arg_len = parsing_str(arg)
         if arg_len == 0:
             print("** class name missing **")
             return
@@ -87,9 +98,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Display all instances provided with classname or not."""
-
-        input_arg = arg.split()
+        input_arg = parsing_str(arg)
         arg_len = len(input_arg)
+
         if arg_len == 0:
             print([str(val) for val in storage.all().values()])
 
@@ -102,8 +113,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """Delete the instances of the class name, using ID and save it."""
+        input_arg = parsing_str(arg)
+        arg_len = len(input_arg)
 
-        input_arg, arg_len = parsing_str(arg)
         if arg_len == 0:
             print("** class name missing **")
 
@@ -122,8 +134,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """Update the class attribute and save it."""
-
-        input_arg, arg_len = parsing_str(arg)
+        input_arg = parsing_str(arg)
+        arg_len = len(input_arg)
 
         if arg_len == 0:
             print("** class name missing **")
@@ -134,28 +146,35 @@ class HBNBCommand(cmd.Cmd):
         elif arg_len == 1:
             print('** instance id missing **')
 
-        elif f"{input_arg[0]}.{input_arg[1]}" not in storage.all().keys():
+        elif arg_len == 2:
+            print("** attribute name missing **")
+
+        elif f"{input_arg[0]}.{input_arg[1]}" not in storage.all():
             print("** no instance found **")
 
-        else:
-            k = input_arg[0] + '.' + input_arg[1]
-            if k in storage.all().keys():
-                if arg_len > 2:
-                    if arg_len == 3:
-                        print("** value missing **")
-                    else:
-                        setattr(storage.all()[k],
-                                input_arg[2],
-                                input_arg[3][:])
-                        storage.all()[k].save()
-                else:
-                    print("** attribute name missing ** ")
+        elif arg_len == 3 and not isinstance(eval(input_arg[2]), dict):
+            print("** value missing **")
+
+        obj = storage.all()[f"{input_arg[0]}.{input_arg[1]}"]
+        if arg_len == 4:
+            if obj and input_arg[2] in obj.__class__.__dict__:
+                obj.__dict__[input_arg[2]] =\
+                    type(obj.__class__.__dict__[input_arg[2]])
             else:
-                print("** no instance found ** ")
+                obj.__dict__[input_arg[2]] = input_arg[3]
+        elif type(eval(input_arg[2])) == dict:
+            for key, val in eval(input_arg[2]).items():
+                if key in obj.__class__.__dict__:
+                    obj.__dict__[key] = type(obj.__class__.__dict__[key])
+                else:
+                    obj.__dict__[key] = val
+        storage.save()
 
     def do_count(self, arg):
         """Count No of instance of a class."""
-        input_arg, arg_len = parsing_str(arg)
+        input_arg = parsing_str(arg)
+        arg_len = len(input_arg)
+
         num = 0
         if arg_len == 0:
             print("** class name missing **")

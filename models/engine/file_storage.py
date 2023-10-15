@@ -2,9 +2,7 @@
 """FileStorage Class"""
 import json
 import os
-from datetime import datetime
 from models.base_model import BaseModel
-from .custom_exceptions import *
 from models.user import User
 from models.state import State
 from models.city import City
