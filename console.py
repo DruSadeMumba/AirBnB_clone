@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Importing the module for building commandline interface."""
 import cmd
+import re
 from shlex import split
 from models import storage
 from models.base_model import BaseModel
@@ -12,11 +13,20 @@ from models.place import Place
 from models.review import Review
 
 
-def parsing_str(inputs: str):
+def parsing_str(arg):
     """Extract a portion of the string."""
-    arg = split(inputs)
-    arg_length = len(arg)
-    return arg, arg_length
+    curly_match = re.search(r"\{(.*?)}", arg)
+    brackets_match = re.search(r"\[(.*?)]", arg)
+
+    pattern_match = brackets_match if curly_match is None else curly_match
+
+    if pattern_match is None:
+        return [i.strip(",") for i in split(arg)]
+    else:
+        delim = split(arg[:pattern_match.span()[0]])
+        return_list = [i.strip(",") for i in delim]
+        return_list.append(pattern_match.group())
+        return return_list
 
 
 class HBNBCommand(cmd.Cmd):
@@ -47,8 +57,8 @@ class HBNBCommand(cmd.Cmd):
         """Display the string representation of an instance
         grounding on the class name && id.
         """
-
-        input_arg, arg_len = parsing_str(arg)
+        input_arg = parsing_str(arg)
+        arg_len = len(input_arg)
 
         if arg_len == 0:
             print("** class name missing **")
@@ -68,8 +78,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """Creating a new instance of BaseModel,save it, and print the id."""
+        input_arg = parsing_str(arg)
+        arg_len = len(input_arg)
 
-        input_arg, arg_len = parsing_str(arg)
         if arg_len == 0:
             print("** class name missing **")
             return
@@ -84,9 +95,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Display all instances provided with classname or not."""
-
-        input_arg = arg.split()
+        input_arg = parsing_str(arg)
         arg_len = len(input_arg)
+
         if arg_len == 0:
             print([str(val) for val in storage.all().values()])
 
@@ -99,8 +110,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """Delete the instances of the class name, using ID and save it."""
+        input_arg = parsing_str(arg)
+        arg_len = len(input_arg)
 
-        input_arg, arg_len = parsing_str(arg)
         if arg_len == 0:
             print("** class name missing **")
 
@@ -119,7 +131,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """Update the class attribute and save it."""
-        input_arg, arg_len = parsing_str(arg)
+        input_arg = parsing_str(arg)
+        arg_len = len(input_arg)
 
         if arg_len == 0:
             print("** class name missing **")
@@ -156,7 +169,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_count(self, arg):
         """Count No of instance of a class."""
-        input_arg, arg_len = parsing_str(arg)
+        input_arg = parsing_str(arg)
+        arg_len = len(input_arg)
+
         num = 0
         if arg_len == 0:
             print("** class name missing **")
