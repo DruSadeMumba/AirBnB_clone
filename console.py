@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Importing the module for building commandline interface."""
 import cmd
-import re
 from shlex import split
 from models import storage
 from models.base_model import BaseModel
@@ -105,17 +104,18 @@ class HBNBCommand(cmd.Cmd):
         if arg_len == 0:
             print("** class name missing **")
 
-        elif arg_len > 1:
-            try:
-                storage.pop_classname_id(input_arg[0], input_arg[1])
+        elif input_arg[0] not in HBNBCommand.__cls_list:
+            print("** class doesn't exist **")
 
-            except InstanceIdNotFoundError:
-                print("** no instance found **")
-
-            except ClassNameNotFoundError:
-                print("** class doesn't exist **")
-        else:
+        elif arg_len == 1:
             print("** instance id missing **")
+
+        elif f"{input_arg[0]}.{input_arg[1]}" not in storage.all().keys():
+            print("** no instance found **")
+
+        else:
+            del storage.all()[f"{input_arg[0]}.{input_arg[1]}"]
+            storage.save()
 
     def do_update(self, arg):
         """Update the class attribute and save it."""
@@ -131,9 +131,12 @@ class HBNBCommand(cmd.Cmd):
         elif arg_len == 1:
             print('** instance id missing **')
 
+        elif f"{input_arg[0]}.{input_arg[1]}" not in storage.all().keys():
+            print("** no instance found **")
+
         else:
             k = input_arg[0] + '.' + input_arg[1]
-            if k in storage.all():
+            if k in storage.all().keys():
                 if arg_len > 2:
                     if arg_len == 3:
                         print("** value missing **")
