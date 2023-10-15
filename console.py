@@ -119,7 +119,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """Update the class attribute and save it."""
-
         input_arg, arg_len = parsing_str(arg)
 
         if arg_len == 0:
@@ -140,12 +139,20 @@ class HBNBCommand(cmd.Cmd):
         elif arg_len == 3 and not isinstance(eval(input_arg[2]), dict):
             print("** value missing **")
 
-        else:
-            k = f"{input_arg[0]}.{input_arg[1]}"
-            if k in storage.all():
-                if arg_len > 2:
-                    setattr(storage.all()[k], input_arg[2], input_arg[3][:])
-            storage.all()[k].save()
+        obj = storage.all()[f"{input_arg[0]}.{input_arg[1]}"]
+        if arg_len == 4:
+            if obj and input_arg[2] in obj.__class__.__dict__:
+                obj.__dict__[input_arg[2]] =\
+                    type(obj.__class__.__dict__[input_arg[2]])
+            else:
+                obj.__dict__[input_arg[2]] = input_arg[3]
+        elif type(eval(input_arg[2])) == dict:
+            for key, val in eval(input_arg[2]).items():
+                if key in obj.__class__.__dict__:
+                    obj.__dict__[key] = type(obj.__class__.__dict__[key])
+                else:
+                    obj.__dict__[key] = val
+        storage.save()
 
     def do_count(self, arg):
         """Count No of instance of a class."""
