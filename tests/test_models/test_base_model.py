@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Unittest module for the BaseModel Class."""
 import unittest
+from models.base_model import BaseModel
 
 
 def assert_raises_type_error(self, func, *args):
@@ -13,6 +14,8 @@ def assert_raises_type_error(self, func, *args):
 
 class TestBaseModel(unittest.TestCase):
     """Test cases for the FileStorage class"""
+    base = BaseModel()
+    vals = ["id", "created_at", "updated_at", "__class__"]
 
     def setUp(self):
         """Set up test methods."""
