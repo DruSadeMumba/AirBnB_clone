@@ -35,8 +35,7 @@ class BaseModel:
 
     def to_dict(self):
         """ Returns a dictionary rep of the instance"""
-        dic = self.__dict__.copy()
+        dic = {key: val.isoformat() if isinstance(val, datetime) else val
+               for key, val in self.__dict__.items()}
         dic["__class__"] = type(self).__name__
-        dic["created_at"] = dic["created_at"].isoformat()
-        dic["updated_at"] = dic["updated_at"].isoformat()
         return dic
