@@ -48,7 +48,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_to_dict(self):
         """Test to dic func"""
-
+        self.fail()
 
 if __name__ == '__main__':
     unittest.main()
