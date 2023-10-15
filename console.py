@@ -162,22 +162,23 @@ class HBNBCommand(cmd.Cmd):
             return False
 
         if arg_len == 4:
-            obj = storage.all()["{}.{}".format(input_arg[0], input_arg[1])]
-            if input_arg[2] in obj.__class__.__dict__.keys():
-                valtype = type(obj.__class__.__dict__[input_arg[2]])
-                obj.__dict__[input_arg[2]] = valtype(input_arg[3])
+            obj = storage.all()[f"{input_arg[0]}.{input_arg[1]}"]
+            if input_arg[2] in obj.__class__.__dict__:
+                obj.__dict__[input_arg[2]] =\
+                    type(obj.__class__.__dict__[input_arg[2]])(input_arg[3])
             else:
                 obj.__dict__[input_arg[2]] = input_arg[3]
-        elif type(eval(input_arg[2])) == dict:
-            obj = storage.all()[f"{input_arg[0]}.{input_arg[1]}"]
-            for key, val in eval(input_arg[2]).items():
-                if key in obj.__class__.__dict__ \
-                        and type(obj.__class__.__dict__[key]) in {str, int, float}:
-                    obj.__dict__[key] = type(obj.__class__.__dict__[key])(val)
-                else:
-                    obj.__dict__[key] = val
-        storage.save()
 
+        elif type(eval(input_arg[2])) == dict:
+            obj = storage.all()["{}.{}".format(input_arg[0], input_arg[1])]
+            for k, v in eval(input_arg[2]).items():
+                if (k in obj.__class__.__dict__.keys() and
+                        type(obj.__class__.__dict__[k]) in {str, int, float}):
+                    valtype = type(obj.__class__.__dict__[k])
+                    obj.__dict__[k] = valtype(v)
+                else:
+                    obj.__dict__[k] = v
+        storage.save()
     def do_count(self, arg):
         """Count No of instance of a class."""
         input_arg = parsing_str(arg)
