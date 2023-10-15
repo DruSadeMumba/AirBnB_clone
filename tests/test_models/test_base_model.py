@@ -49,7 +49,7 @@ class TestBaseModel(unittest.TestCase):
         assert_raises_type_error(self, self.base.save)
         assert_raises_type_error(self, self.base.save, "a")
 
-    def test_to_dict(self):
+    def test_to_dicts(self):
         """Tests the public instance method to_dict()."""
         self.base.name = "Cat"
         self.base.age = 3
@@ -61,13 +61,13 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(dic["name"], self.base.name)
         self.assertEqual(dic["age"], self.base.age)
 
-    def test_to_dict_args(self):
+    def test_to_dicts_args(self):
         """Tests to_dict() with no arguments."""
         self.tearDown()
         assert_raises_type_error(self, self.base.to_dict())
         assert_raises_type_error(self, self.base.to_dict, "a")
 
-    def test_to_dict_instantiation(self):
+    def test_to_dicts_instantiation(self):
         """Tests instantiation with **kwargs."""
         my_model = BaseModel()
         my_model.name = "Abc"
