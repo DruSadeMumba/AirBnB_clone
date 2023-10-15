@@ -171,12 +171,12 @@ class HBNBCommand(cmd.Cmd):
                     type(obj.__class__.__dict__[input_arg[2]])(input_arg[3])
             else:
                 obj.__dict__[input_arg[2]] = input_arg[3]
-                
+
         elif type(eval(input_arg[2])) == dict:
             obj = storage.all()[f"{input_arg[0]}.{input_arg[1]}"]
             for key, val in eval(input_arg[2]).items():
-                if key in obj.__class__.__dict__ \
-                        and type(obj.__class__.__dict__[key]) in {str, int, float}:
+                if key in obj.__class__.__dict__ and \
+                        type(obj.__class__.__dict__[key]) in {str, int, float}:
                     obj.__dict__[key] = type(obj.__class__.__dict__[key])(val)
                 else:
                     obj.__dict__[key] = val
