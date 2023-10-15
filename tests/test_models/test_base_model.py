@@ -2,6 +2,7 @@
 """Unittest module for the BaseModel Class."""
 import unittest
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 def assert_raises_type_error(self, func, *args):
@@ -16,6 +17,7 @@ class TestBaseModel(unittest.TestCase):
     """Test cases for the FileStorage class"""
     base = BaseModel()
     vals = ["id", "created_at", "updated_at", "__class__"]
+    FileStorage.__objects = {}
 
     def setUp(self):
         """Set up test methods."""
