@@ -50,6 +50,7 @@ class TestBaseModel(unittest.TestCase):
         """Test to_dic func"""
         [self.assertIn(obj, self.base.to_dict())
          for obj in self.vals if self.subTest(obj=obj)]
+        self.assertRaises(TypeError, self.base.to_dict())
 
 
 if __name__ == '__main__':
