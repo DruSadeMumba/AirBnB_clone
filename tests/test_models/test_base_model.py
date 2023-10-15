@@ -48,10 +48,11 @@ class TestBaseModel(unittest.TestCase):
 
     def test_to_dict(self):
         """Test to_dic func"""
-        self.assertIn("id", self.base.to_dict())
-        self.assertIn("created_at", self.base.to_dict())
-        self.assertIn("updated_at", self.base.to_dict())
-        self.assertIn("__class__", self.base.to_dict())
+        for obj in self.vals:
+            with self.subTest(obj=obj):
+                self.assertIn(obj, self.base.to_dict())
+
+    def test_to_dict_err(self):
         assert_raises_type_error(self, self.base.to_dict)
 
 
