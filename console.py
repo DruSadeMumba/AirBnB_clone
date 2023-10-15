@@ -179,7 +179,7 @@ class HBNBCommand(cmd.Cmd):
                 if command in command_dict.keys():
                     call = "{} {}".format(split_arg[0], arguments)
                     return command_dict[command](call)
-        
+
         print("*** Not found: {}".format(arg))
         return False
 
