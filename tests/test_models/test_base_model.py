@@ -45,6 +45,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(dict, type(self.base.to_dict()))
         [self.assertIn(obj, self.base.to_dict())
          for obj in self.vals if self.subTest(obj=obj)]
+
         self.assertRaises(TypeError, self.base.to_dict())
 
 
