@@ -12,9 +12,9 @@ from models.place import Place
 from models.review import Review
 
 
-def parsing_str(input: str):
+def parsing_str(inputs: str):
     """Extract a portion of the string."""
-    arg = split(input)
+    arg = split(inputs)
     arg_length = len(arg)
     return arg, arg_length
 
@@ -131,24 +131,21 @@ class HBNBCommand(cmd.Cmd):
         elif arg_len == 1:
             print('** instance id missing **')
 
-        elif f"{input_arg[0]}.{input_arg[1]}" not in storage.all().keys():
+        elif arg_len == 2:
+            print("** attribute name missing **")
+
+        elif f"{input_arg[0]}.{input_arg[1]}" not in storage.all():
             print("** no instance found **")
 
+        elif arg_len == 3 and not isinstance(eval(input_arg[2]), dict):
+            print("** value missing **")
+
         else:
-            k = input_arg[0] + '.' + input_arg[1]
-            if k in storage.all().keys():
+            k = f"{input_arg[0]}.{input_arg[1]}"
+            if k in storage.all():
                 if arg_len > 2:
-                    if arg_len == 3:
-                        print("** value missing **")
-                    else:
-                        setattr(storage.all()[k],
-                                input_arg[2],
-                                input_arg[3][:])
-                        storage.all()[k].save()
-                else:
-                    print("** attribute name missing ** ")
-            else:
-                print("** no instance found ** ")
+                    setattr(storage.all()[k], input_arg[2], input_arg[3][:])
+            storage.all()[k].save()
 
     def do_count(self, arg):
         """Count No of instance of a class."""
