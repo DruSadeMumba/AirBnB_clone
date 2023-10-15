@@ -149,11 +149,8 @@ class HBNBCommand(cmd.Cmd):
         if f"{input_arg[0]}.{input_arg[1]}" not in storage.all():
             print("** no instance found **")
 
-        if arg_len == 3:
-            try:
-                type(eval(input_arg[2])) != dict
-            except NameError:
-                print("** value missing **")
+        if arg_len == 3 and not isinstance(eval(input_arg[2]), dict):
+            print("** value missing **")
 
         if arg_len == 4:
             obj = storage.all()[f"{input_arg[0]}.{input_arg[1]}"]
