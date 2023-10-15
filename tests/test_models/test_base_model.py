@@ -1,67 +1,30 @@
 #!/usr/bin/python3
 """Unittest module for the BaseModel Class."""
-import os
 import unittest
-from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
-
-
-def assert_raises_type_error(self, func, *args):
-    """Error handler"""
-    with self.assertRaises(TypeError) as e:
-        func(args)
-    err = f"{str(e.exception)}"
-    self.assertEqual(str(e.exception), err)
 
 
 class TestBaseModel(unittest.TestCase):
     """Test cases for the FileStorage class"""
-    base = BaseModel()
-    vals = ["id", "created_at", "updated_at", "__class__"]
 
     def setUp(self):
-        """Set up tests"""
+        """Set up test methods."""
         super().setUp()
-        FileStorage.__objects = {}
 
     def tearDown(self):
         """Tear down test methods."""
         super().tearDown()
-        FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
 
-    def test_instantiation(self):
-        """Test instantiation of BaseModel class"""
-        self.assertEqual(str(type(self.base)),
-                         "<class 'models.base_model.BaseModel'>")
-        self.assertIsInstance(self.base, BaseModel)
+    def id(self):
+        """override Id"""
+        return super().id()
 
-    """
-    def assertSave(self):
-        # Test Save func
-        self.tearDown()
-        self.base.save()
-        key = f"{type(self.base).__name__}.{self.base.id}"
-        self.assertTrue(os.path.isfile(FileStorage._FileStorage__file_path))
-        dic = {key: self.base.to_dict()}
-        with open(FileStorage._FileStorage__file_path,
-                  "r", encoding="utf-8") as f:
-            self.assertEqual(len(f.read()), len(json.dumps(dic)))
-            f.seek(0)
-            self.assertEqual(json.load(f), dic)
-    """
     def test_save(self):
         """Test Save func"""
-        assert_raises_type_error(self, self.base.save)
-        assert_raises_type_error(self, self.base.save, "a")
+        self.fail()
 
     def test_to_dict(self):
         """Test to_dic func"""
-        self.assertTrue(dict, type(self.base.to_dict()))
-        [self.assertIn(obj, self.base.to_dict())
-         for obj in self.vals if self.subTest(obj=obj)]
-        self.assertRaises(TypeError, self.base.to_dict())
+        self.fail()
 
 
 if __name__ == '__main__':
