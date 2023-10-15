@@ -173,7 +173,7 @@ class HBNBCommand(cmd.Cmd):
             for key, val in eval(input_arg[2]).items():
                 if key in obj.__class__.__dict__ \
                         and type(obj.__class__.__dict__[key]) in {str, int, float}:
-                    obj.__dict__[key] = type(obj.__class__.__dict__[key])
+                    obj.__dict__[key] = type(obj.__class__.__dict__[key])(val)
                 else:
                     obj.__dict__[key] = val
         storage.save()
