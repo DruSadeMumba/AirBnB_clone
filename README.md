@@ -4,7 +4,8 @@
 
 ## Command Interpreter Description
 ### Starting the command interpreter
-* (fill in)
+* Clone the project `git@github.com:DruSadeMumba/AirBnB_clone.git`
+* Cd into the project and execute the console.py file
 ### Using the command interpreter
 --> Interactive Mode  
 ``` commandline
@@ -43,10 +44,12 @@ EOF  help  quit
 $
 ```
 ### Examples
-* (fill)
+``` commandline
+
+```
 ## Authors
-*Dru Sade Mumba*\
-*Celse Honore Rugira*
+*[Dru Sade Mumba](https://github.com/DruSadeMumba)* \
+*[Celse Honore Rugira](https://github.com/Celse13)*
 ## Support and contact details
 `drusademumba@gmail.com`\
 `rugiracelse13@gmail.com`
