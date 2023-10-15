@@ -35,6 +35,12 @@ class TestBaseModel(unittest.TestCase):
         """override Id"""
         return super().id()
 
+    def test_instantiation(self):
+        """Test instantiation of BaseModel class"""
+        self.assertEqual(str(type(self.base)),
+                         "<class 'models.base_model.BaseModel'>")
+        self.assertIsInstance(self.base, BaseModel)
+
     def test_save(self):
         """Test Save func"""
         assert_raises_type_error(self, self.base.save)
@@ -45,8 +51,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(dict, type(self.base.to_dict()))
         [self.assertIn(obj, self.base.to_dict())
          for obj in self.vals if self.subTest(obj=obj)]
-
-        self.assertRaises(TypeError, self.base.to_dict())
+        assert_raises_type_error(self, self.base.to_dict)
 
 
 if __name__ == '__main__':
