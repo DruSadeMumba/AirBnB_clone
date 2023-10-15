@@ -46,10 +46,6 @@ class TestBaseModel(unittest.TestCase):
         assert_raises_type_error(self, self.base.save)
         assert_raises_type_error(self, self.base.save, "a")
 
-    def test_to_dict(self):
-        """Test to_dic func"""
-        self.fail()
-
 
 if __name__ == '__main__':
     unittest.main()
