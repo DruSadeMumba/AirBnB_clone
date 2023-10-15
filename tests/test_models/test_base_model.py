@@ -52,6 +52,7 @@ class TestBaseModel(unittest.TestCase):
             self.assertEqual(json.load(f), dic)
     """
     def test_save(self):
+        """Test Save func"""
         assert_raises_type_error(self, self.base.save)
         assert_raises_type_error(self, self.base.save, "a")
 
