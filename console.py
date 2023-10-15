@@ -157,9 +157,12 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return False
 
-        if arg_len == 3 and not isinstance(eval(input_arg[2]), dict):
-            print("** value missing **")
-            return False
+        if arg_len == 3:
+            try:
+                type(eval(input_arg[2])) != dict
+            except NameError:
+                print("** value missing **")
+                return False
 
         if arg_len == 4:
             obj = storage.all()[f"{input_arg[0]}.{input_arg[1]}"]
@@ -168,17 +171,17 @@ class HBNBCommand(cmd.Cmd):
                     type(obj.__class__.__dict__[input_arg[2]])(input_arg[3])
             else:
                 obj.__dict__[input_arg[2]] = input_arg[3]
-
+                
         elif type(eval(input_arg[2])) == dict:
-            obj = storage.all()["{}.{}".format(input_arg[0], input_arg[1])]
-            for k, v in eval(input_arg[2]).items():
-                if (k in obj.__class__.__dict__.keys() and
-                        type(obj.__class__.__dict__[k]) in {str, int, float}):
-                    valtype = type(obj.__class__.__dict__[k])
-                    obj.__dict__[k] = valtype(v)
+            obj = storage.all()[f"{input_arg[0]}.{input_arg[1]}"]
+            for key, val in eval(input_arg[2]).items():
+                if key in obj.__class__.__dict__ \
+                        and type(obj.__class__.__dict__[key]) in {str, int, float}:
+                    obj.__dict__[key] = type(obj.__class__.__dict__[key])(val)
                 else:
-                    obj.__dict__[k] = v
+                    obj.__dict__[key] = val
         storage.save()
+
     def do_count(self, arg):
         """Count No of instance of a class."""
         input_arg = parsing_str(arg)
