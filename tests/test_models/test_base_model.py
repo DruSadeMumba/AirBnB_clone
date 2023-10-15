@@ -50,5 +50,6 @@ class TestBaseModel(unittest.TestCase):
         """Test to dic func"""
         self.fail()
 
+
 if __name__ == '__main__':
     unittest.main()
