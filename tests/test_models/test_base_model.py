@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Unittest module for the BaseModel Class."""
+import os
 import unittest
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
@@ -17,15 +18,18 @@ class TestBaseModel(unittest.TestCase):
     """Test cases for the FileStorage class"""
     base = BaseModel()
     vals = ["id", "created_at", "updated_at", "__class__"]
-    FileStorage.__objects = {}
 
     def setUp(self):
         """Set up test methods."""
         super().setUp()
+        FileStorage.__objects = {}
 
     def tearDown(self):
         """Tear down test methods."""
         super().tearDown()
+        FileStorage._FileStorage__objects = {}
+        if os.path.isfile(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
 
     def id(self):
         """override Id"""
