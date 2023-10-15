@@ -74,6 +74,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
+        elif input_arg[0] not in HBNBCommand.__cls_list:
+            print("** class doesn't exist **")
+
         elif arg_len == 1:
             obj = eval(input_arg[0])()
             obj.save()
