@@ -29,7 +29,6 @@ class TestFileStorage(unittest.TestCase):
     def setUp(self):
         """Set up tests"""
         super().setUp()
-        FileStorage.__objects = {}
 
     def tearDown(self):
         """Tear down tests"""
@@ -62,11 +61,9 @@ class TestFileStorage(unittest.TestCase):
 
     def test_all(self):
         """Test for all() function"""
-        for obj in self.test_obj:
-            with self.subTest(obj=obj):
-                self.assertAll(obj)
-                self.assertAllObjs(self.test_obj)
-
+        [self.assertAll(ob) for ob in self.test_obj if self.subTest(obj=ob)]
+        [self.assertAllObjs(self.test_obj)
+         for ob in self.test_obj if self.subTest(obj=ob)]
         assert_raises_type_error(self, storage.all)
         assert_raises_type_error(self, storage.all, "a")
 
@@ -79,10 +76,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_new(self):
         """Test for new() function"""
-        for obj in self.test_obj:
-            with self.subTest(obj=obj):
-                self.assertNew(obj)
-
+        [self.assertNew(obj) for obj in self.test_obj if self.subTest(obj=obj)]
         assert_raises_type_error(self, FileStorage.new)
         assert_raises_type_error(self, FileStorage.new, "a")
 
@@ -93,19 +87,16 @@ class TestFileStorage(unittest.TestCase):
         key = f"{type(obj).__name__}.{obj.id}"
         storage.save()
         self.assertTrue(os.path.isfile(FileStorage._FileStorage__file_path))
-        d = {key: obj.to_dict()}
+        dic = {key: obj.to_dict()}
         with open(FileStorage._FileStorage__file_path,
                   "r", encoding="utf-8") as f:
-            self.assertEqual(len(f.read()), len(json.dumps(d)))
+            self.assertEqual(len(f.read()), len(json.dumps(dic)))
             f.seek(0)
-            self.assertEqual(json.load(f), d)
+            self.assertEqual(json.load(f), dic)
 
     def test_save(self):
         """Test for save() function"""
-        for obj in self.test_obj:
-            with self.subTest(obj=obj):
-                self.assertSave(obj)
-
+        [self.assertSave(ob) for ob in self.test_obj if self.subTest(obj=ob)]
         assert_raises_type_error(self, storage.save)
         assert_raises_type_error(self, storage.save, "a")
 
@@ -123,10 +114,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_reload(self):
         """Test for reload() function"""
-        for obj in self.test_obj:
-            with self.subTest(obj=obj):
-                self.assertReload(obj)
-
+        [self.assertReload(ob) for ob in self.test_obj if self.subTest(obj=ob)]
         assert_raises_type_error(self, storage.reload)
         assert_raises_type_error(self, storage.reload, "a")
 
