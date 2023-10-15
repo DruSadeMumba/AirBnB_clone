@@ -48,7 +48,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_to_dict(self):
         """Test to_dic func"""
-        self.assertTrue(dict, type(self.base.to_dict()))
+        self.assertTrue(dict, type(self.base.to_dict))
 
 
 if __name__ == '__main__':
