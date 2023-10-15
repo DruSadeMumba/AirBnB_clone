@@ -79,13 +79,13 @@ class TestBaseModel(unittest.TestCase):
     def test_instantiation_dict(self):
         """Tests instantiation with **kwargs from custom dict."""
         dic = {"__class__": "BaseModel",
-             "updated_at":
-             datetime(2000, 11, 3, 20, 59, 59, 123456).isoformat(),
-             "created_at": datetime.now().isoformat(),
-             "id": uuid.uuid4(),
-             "var": "blah",
-             "int": 4,
-             "float": 3.14}
+               "updated_at":
+                   datetime(2000, 11, 3, 20, 59, 59, 123456).isoformat(),
+               "created_at": datetime.now().isoformat(),
+               "id": uuid.uuid4(),
+               "var": "blah",
+               "int": 4,
+               "float": 3.14}
         obj = BaseModel(**dic)
         self.assertEqual(obj.to_dict(), dic)
 
