@@ -136,21 +136,27 @@ class HBNBCommand(cmd.Cmd):
 
         if arg_len == 0:
             print("** class name missing **")
+            return False
 
         if input_arg[0] not in HBNBCommand.__cls_list:
             print("** class doesn't exist **")
+            return False
 
         if arg_len == 1:
             print('** instance id missing **')
+            return False
 
         if arg_len == 2:
             print("** attribute name missing **")
+            return False
 
         if f"{input_arg[0]}.{input_arg[1]}" not in storage.all():
             print("** no instance found **")
+            return False
 
         if arg_len == 3 and not isinstance(eval(input_arg[2]), dict):
             print("** value missing **")
+            return False
 
         if arg_len == 4:
             obj = storage.all()[f"{input_arg[0]}.{input_arg[1]}"]
