@@ -37,7 +37,8 @@ class TestBaseModel(unittest.TestCase):
 
     def test_save(self):
         """Test Save func"""
-        self.fail()
+        assert_raises_type_error(self, self.base.save)
+        assert_raises_type_error(self, self.base.save, "a")
 
     def test_to_dict(self):
         """Test to_dic func"""
