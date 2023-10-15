@@ -85,9 +85,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        elif input_arg[0] not in HBNBCommand.__cls_list:
-            print("** class doesn't exist **")
-
         elif arg_len == 1:
             obj = eval(input_arg[0])()
             obj.save()
@@ -134,47 +131,41 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """Update the class attribute and save it."""
-        argl = parsing_str(arg)
-        objdict = storage.all()
+        input_arg = parsing_str(arg)
+        arg_len = len(input_arg)
 
-        if len(argl) == 0:
+        if arg_len == 0:
             print("** class name missing **")
-            return False
-        if argl[0] not in HBNBCommand.__cls_list:
-            print("** class doesn't exist **")
-            return False
-        if len(argl) == 1:
-            print("** instance id missing **")
-            return False
-        if "{}.{}".format(argl[0], argl[1]) not in objdict.keys():
-            print("** no instance found **")
-            return False
-        if len(argl) == 2:
-            print("** attribute name missing **")
-            return False
-        if len(argl) == 3:
-            try:
-                type(eval(argl[2])) != dict
-            except NameError:
-                print("** value missing **")
-                return False
 
-        if len(argl) == 4:
-            obj = objdict["{}.{}".format(argl[0], argl[1])]
-            if argl[2] in obj.__class__.__dict__.keys():
-                valtype = type(obj.__class__.__dict__[argl[2]])
-                obj.__dict__[argl[2]] = valtype(argl[3])
+        if input_arg[0] not in HBNBCommand.__cls_list:
+            print("** class doesn't exist **")
+
+        if arg_len == 1:
+            print('** instance id missing **')
+
+        if arg_len == 2:
+            print("** attribute name missing **")
+
+        if f"{input_arg[0]}.{input_arg[1]}" not in storage.all():
+            print("** no instance found **")
+
+        if arg_len == 3 and not isinstance(eval(input_arg[2]), dict):
+            print("** value missing **")
+
+        if arg_len == 4:
+            obj = storage.all()[f"{input_arg[0]}.{input_arg[1]}"]
+            if input_arg[2] in obj.__class__.__dict__:
+                obj.__dict__[input_arg[2]] =\
+                    type(obj.__class__.__dict__[input_arg[2]])
             else:
-                obj.__dict__[argl[2]] = argl[3]
-        elif type(eval(argl[2])) == dict:
-            obj = objdict["{}.{}".format(argl[0], argl[1])]
-            for k, v in eval(argl[2]).items():
-                if (k in obj.__class__.__dict__.keys() and
-                        type(obj.__class__.__dict__[k]) in {str, int, float}):
-                    valtype = type(obj.__class__.__dict__[k])
-                    obj.__dict__[k] = valtype(v)
+                obj.__dict__[input_arg[2]] = input_arg[3]
+        elif type(eval(input_arg[2])) == dict:
+            obj = storage.all()[f"{input_arg[0]}.{input_arg[1]}"]
+            for key, val in eval(input_arg[2]).items():
+                if key in obj.__class__.__dict__:
+                    obj.__dict__[key] = type(obj.__class__.__dict__[key])
                 else:
-                    obj.__dict__[k] = v
+                    obj.__dict__[key] = val
         storage.save()
 
     def do_count(self, arg):
