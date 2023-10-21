@@ -42,13 +42,19 @@ h2		{
 	margin-bottom: 5px;
 	text-align: start;
 }
+h4		{
+	color: rgb(109, 103, 96);
+}
 
-ul, li		{
+ul, li, h4		{
 	margin-top: 0;
-	color: #FAFAFA;
 	font-weight: 400;
 	font-size: 14px;
 	text-align: start;
+}
+
+ul, li		{
+	color: #FAFAFA;
 	width: 100%;
 	border: 1px solid #DDDDDD;
 }
