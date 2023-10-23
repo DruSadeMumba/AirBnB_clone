@@ -2,7 +2,6 @@
 	font-size: 30px;
 	display: flex;
 	flex-wrap: wrap;
-	text-align: center;
 	justify-content: space-between;
 }
 
@@ -11,6 +10,7 @@
     align-items: baseline;
     flex-wrap: wrap;
     justify-content: center;
+	text-align: center;
 }
 
 article		{
